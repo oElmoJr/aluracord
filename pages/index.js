@@ -91,7 +91,7 @@ export default function PaginaInicial() {
           styleSheet={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             flexDirection: {
               xs: "column",
               sm: "row",
