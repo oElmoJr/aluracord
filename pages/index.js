@@ -80,9 +80,8 @@ export default function PaginaInicial() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage:
-            "url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)",
+          backgroundColor: appConfig.theme.colors.primary["000"],
+          backgroundImage: "url(https://i.imgur.com/T3bfXOV.gif)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
@@ -146,8 +145,8 @@ export default function PaginaInicial() {
               label="Entrar"
               fullWidth
               buttonColors={{
-                contrastColor: appConfig.theme.colors.neutrals["400"],
-                mainColor: appConfig.theme.colors.primary[500],
+                contrastColor: appConfig.theme.colors.neutrals["500"],
+                mainColor: appConfig.theme.colors.primary["500"],
                 mainColorLight: appConfig.theme.colors.primary[400],
                 mainColorStrong: appConfig.theme.colors.primary[600],
               }}
