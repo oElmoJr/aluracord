@@ -1,42 +1,8 @@
-import appConfig from "../config.json";
 import { Box, Button, Text, TextField, Image } from "@skynexui/components";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-//GlobalStyle component
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-
-      body {
-        font-family: "Open Sans", sans-serif;
-      }
-
-      /* App fit Height */
-      html,
-      body,
-      #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-
-      #__next {
-        flex: 1;
-      }
-
-      #__next > * {
-        flex: 1;
-      }
-
-      /* ./App fit Height */
-    `}</style>
-  );
-}
+import appConfig from "../config.json";
 
 //Title component
 function Titulo(props) {
@@ -70,11 +36,12 @@ function Titulo(props) {
 // export default HomePage;
 
 export default function PaginaInicial() {
-  const username = "oelmojr";
+  // const username = "oelmojr";
+  const [username, setUsername] = useState("oelmojr");
+  const roteamento = useRouter();
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: "flex",
@@ -108,6 +75,11 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (e) {
+              e.preventDefault();
+              roteamento.push("/chat");
+              console.log("aaaaaa");
+            }}
             styleSheet={{
               display: "flex",
               flexDirection: "column",
@@ -130,6 +102,11 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function (e) {
+                setUsername(e.target.value);
+                console.log(e.target.value);
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
