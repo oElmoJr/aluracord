@@ -4,6 +4,17 @@ import { useRouter } from "next/router";
 
 import appConfig from "../config.json";
 
+import Head from "next/head";
+
+function IndexPage() {
+  return (
+    <Head>
+      <title>AluraCord</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
+  );
+}
+
 //Title component
 function Titulo(props) {
   //   console.log(props);
@@ -38,10 +49,21 @@ function Titulo(props) {
 export default function PaginaInicial() {
   // const username = "oelmojr";
   const [username, setUsername] = useState("oelmojr");
+  const [followers, setollowers] = useState();
+  const [following, setFollowing] = useState();
   const roteamento = useRouter();
+
+  fetch(`https://api.github.com/users/${username}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      // setFollowing(data.following);
+      // setollowers(data.followers);
+    });
 
   return (
     <>
+      <IndexPage />
       <Box
         styleSheet={{
           display: "flex",
@@ -78,7 +100,6 @@ export default function PaginaInicial() {
             onSubmit={function (e) {
               e.preventDefault();
               roteamento.push("/chat");
-              console.log("aaaaaa");
             }}
             styleSheet={{
               display: "flex",
@@ -105,7 +126,6 @@ export default function PaginaInicial() {
               value={username}
               onChange={function (e) {
                 setUsername(e.target.value);
-                console.log(e.target.value);
               }}
               fullWidth
               textFieldColors={{
@@ -152,8 +172,35 @@ export default function PaginaInicial() {
                 borderRadius: "50%",
                 marginBottom: "16px",
               }}
-              src={`https://github.com/${username}.png`}
+              src={
+                username.length > 2 ? `https://github.com/${username}.png` : ""
+              }
             />
+            <Text
+              variant="body4"
+              styleSheet={{
+                color: appConfig.theme.colors.neutrals[200],
+                backgroundColor: appConfig.theme.colors.neutrals[900],
+                padding: "3px 10px",
+                borderRadius: "1000px",
+                marginBottom: "10px",
+              }}
+            >
+              {username}
+            </Text>
+
+            <Text
+              variant="body4"
+              styleSheet={{
+                color: appConfig.theme.colors.neutrals[200],
+                backgroundColor: appConfig.theme.colors.neutrals[900],
+                padding: "3px 10px",
+                borderRadius: "1000px",
+                marginBottom: "2px",
+              }}
+            >
+              {username.length > 2 ? `Following ${following}` : ""}
+            </Text>
             <Text
               variant="body4"
               styleSheet={{
@@ -163,7 +210,7 @@ export default function PaginaInicial() {
                 borderRadius: "1000px",
               }}
             >
-              {username}
+              {username.length > 2 ? `Followers ${followers}` : ""}
             </Text>
           </Box>
           {/* Photo Area */}

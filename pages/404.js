@@ -3,11 +3,23 @@ import { useRouter } from "next/router";
 
 import appConfig from "../config.json";
 
+import Head from "next/head";
+
+function IndexPage() {
+  return (
+    <Head>
+      <title>AluraCord | 404</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
+  );
+}
+
 export default function Custom404() {
   const roteamento = useRouter();
 
   return (
     <>
+      <IndexPage />
       <Box
         styleSheet={{
           backgroundColor: "black",
