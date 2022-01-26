@@ -56,9 +56,8 @@ export default function PaginaInicial() {
   fetch(`https://api.github.com/users/${username}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      // setFollowing(data.following);
-      // setollowers(data.followers);
+      setFollowing(data.following);
+      setollowers(data.followers);
     });
 
   return (
