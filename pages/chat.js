@@ -83,7 +83,16 @@ export default function ChatPage() {
                 </li>
               );
             })} */}
-            <MessageList mensagens={listaDeMensagem} />
+            <MessageList
+              mensagens={listaDeMensagem}
+              handleDelete={(id) => {
+                setListaDeMensagem(
+                  listaDeMensagem.filter((e) => {
+                    return e.id != id;
+                  })
+                );
+              }}
+            />
             <Box
               as="form"
               styleSheet={{
@@ -187,7 +196,6 @@ function MessageList(props) {
         flex: 1,
         color: appConfig.theme.colors.neutrals["000"],
         marginBottom: "16px",
-        // width: "100vh",
       }}
     >
       {props.mensagens.map((mensagem) => {
@@ -269,6 +277,9 @@ function MessageList(props) {
             </Box>
             <Box>
               <Button
+                onClick={() => {
+                  props.handleDelete(mensagem.id);
+                }}
                 label="X"
                 variant="tertiary"
                 // iconName="trashAlt"
