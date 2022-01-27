@@ -48,17 +48,21 @@ function Titulo(props) {
 
 export default function PaginaInicial() {
   // const username = "oelmojr";
-  const [username, setUsername] = useState("oelmojr");
+  const [username, setUsername] = useState("");
   const [followers, setollowers] = useState();
   const [following, setFollowing] = useState();
   const roteamento = useRouter();
 
-  fetch(`https://api.github.com/users/${username}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setFollowing(data.following);
-      setollowers(data.followers);
-    });
+  {
+    username.length > 2
+      ? fetch(`https://api.github.com/users/${username}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFollowing(data.following);
+            setollowers(data.followers);
+          })
+      : "";
+  }
 
   return (
     <>
@@ -151,67 +155,74 @@ export default function PaginaInicial() {
           {/* Formulário */}
 
           {/* Photo Area */}
-          <Box
-            styleSheet={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              maxWidth: "200px",
-              padding: "16px",
-              backgroundColor: appConfig.theme.colors.neutrals[800],
-              border: "1px solid",
-              borderColor: appConfig.theme.colors.neutrals[999],
-              borderRadius: "10px",
-              flex: 1,
-              minHeight: "240px",
-            }}
-          >
-            <Image
+          {username.length > 2 ? (
+            <Box
               styleSheet={{
-                borderRadius: "50%",
-                marginBottom: "16px",
-              }}
-              src={
-                username.length > 2 ? `https://github.com/${username}.png` : ""
-              }
-            />
-            <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: "3px 10px",
-                borderRadius: "1000px",
-                marginBottom: "10px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                maxWidth: "200px",
+                padding: "16px",
+                backgroundColor: appConfig.theme.colors.neutrals[800],
+                border: "1px solid",
+                borderColor: appConfig.theme.colors.neutrals[999],
+                borderRadius: "10px",
+                flex: 1,
+                minHeight: "240px",
               }}
             >
-              {username}
-            </Text>
+              <Image
+                styleSheet={{
+                  borderRadius: "50%",
+                  marginBottom: "16px",
+                }}
+                src={
+                  username.length > 2
+                    ? `https://github.com/${username}.png`
+                    : ""
+                }
+              />
+              <Text
+                variant="body4"
+                styleSheet={{
+                  color: appConfig.theme.colors.neutrals[200],
+                  backgroundColor: appConfig.theme.colors.neutrals[900],
+                  padding: "3px 10px",
+                  borderRadius: "1000px",
+                  marginBottom: "10px",
+                }}
+              >
+                {username}
+              </Text>
 
-            <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: "3px 10px",
-                borderRadius: "1000px",
-                marginBottom: "2px",
-              }}
-            >
-              {username.length > 2 ? `Following ${following}` : ""}
-            </Text>
-            <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: "3px 10px",
-                borderRadius: "1000px",
-              }}
-            >
-              {username.length > 2 ? `Followers ${followers}` : ""}
-            </Text>
-          </Box>
+              <Text
+                variant="body4"
+                styleSheet={{
+                  color: appConfig.theme.colors.neutrals[200],
+                  backgroundColor: appConfig.theme.colors.neutrals[900],
+                  padding: "3px 10px",
+                  borderRadius: "1000px",
+                  marginBottom: "2px",
+                }}
+              >
+                {username.length > 2 ? `Following ${following}` : ""}
+              </Text>
+              <Text
+                variant="body4"
+                styleSheet={{
+                  color: appConfig.theme.colors.neutrals[200],
+                  backgroundColor: appConfig.theme.colors.neutrals[900],
+                  padding: "3px 10px",
+                  borderRadius: "1000px",
+                }}
+              >
+                {username.length > 2 ? `Followers ${followers}` : ""}
+              </Text>
+            </Box>
+          ) : (
+            ""
+          )}
+
           {/* Photo Area */}
         </Box>
       </Box>
