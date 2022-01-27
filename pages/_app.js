@@ -10,6 +10,10 @@ function GlobalStyle() {
         scrollbar-width: none;
       }
 
+      *::-webkit-scrollbar {
+        display: none;
+      }
+
       body {
         font-family: "Open Sans", sans-serif;
       }

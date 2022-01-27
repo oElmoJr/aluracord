@@ -79,10 +79,10 @@ export default function ChatPage() {
             {/* {listaDeMensagem.map((mensagemAtual) => {
               return (
                 <li key={mensagemAtual.id}>
-                  {mensagemAtual.de}: {mensagemAtual.texto}
+                {mensagemAtual.de}: {mensagemAtual.texto}
                 </li>
-              );
-            })} */}
+                );
+              })} */}
             <MessageList
               mensagens={listaDeMensagem}
               handleDelete={(id) => {
@@ -152,6 +152,12 @@ export default function ChatPage() {
                   color: appConfig.theme.colors.neutrals[500],
                   marginBottom: "5px",
                 }}
+                buttonColors={{
+                  contrastColor: appConfig.theme.colors.neutrals["500"],
+                  mainColor: appConfig.theme.colors.primary["500"],
+                  mainColorLight: appConfig.theme.colors.primary[400],
+                  mainColorStrong: appConfig.theme.colors.primary[700],
+                }}
               />
             </Box>
           </Box>
@@ -191,7 +197,8 @@ function MessageList(props) {
       tag="ul"
       styleSheet={{
         display: "flex",
-        overflow: "scroll",
+        overflowY: "scroll",
+
         flexDirection: "column-reverse",
         flex: 1,
         color: appConfig.theme.colors.neutrals["000"],
@@ -268,6 +275,7 @@ function MessageList(props) {
                   styleSheet={{
                     width: "100%",
                     wordBreak: "break-all",
+                    whiteSpace: "pre-line",
                   }}
                   tag="p"
                 >

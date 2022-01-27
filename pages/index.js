@@ -148,7 +148,7 @@ export default function PaginaInicial() {
                 contrastColor: appConfig.theme.colors.neutrals["500"],
                 mainColor: appConfig.theme.colors.primary["500"],
                 mainColorLight: appConfig.theme.colors.primary[400],
-                mainColorStrong: appConfig.theme.colors.primary[600],
+                mainColorStrong: appConfig.theme.colors.primary[700],
               }}
             />
           </Box>
