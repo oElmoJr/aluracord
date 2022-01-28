@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
 import { Box, Text, TextField, Image, Button } from "@skynexui/components";
-import { createClient } from "@supabase/supabase-js";
+import { useState, useEffect } from "react";
 import appConfig from "../config.json";
+import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";
@@ -32,14 +32,18 @@ export default function ChatPage() {
         .order("id", { ascending: false })
         .then(({ data }) => {
           setListaDeMensagem(data);
+          // console.log(data);
           setPending(false);
         });
     }, 200);
+  }, []);
+
+  useEffect(() => {
     let userInfo = localStorage.getItem("userInfo");
     if (userInfo !== null) {
       userInfo = JSON.parse(userInfo);
       setUser(userInfo);
-      localStorage.clear();
+      // localStorage.clear();
     }
   }, []);
 
@@ -54,7 +58,8 @@ export default function ChatPage() {
       .from("mensagens")
       .insert([mensagem])
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
+
         setListaDeMensagem([data[0], ...listaDeMensagem]);
       });
     setMensagens("");
@@ -319,6 +324,15 @@ function MessageList(props) {
         </Text>
       ) : (
         props.mensagens.map((mensagem) => {
+          const date = mensagem.created_at;
+          var dataNformatada = new Date(date);
+          let dataFormatada =
+            dataNformatada.getDate() +
+            "/" +
+            (dataNformatada.getMonth() + 1) +
+            "/" +
+            dataNformatada.getFullYear();
+
           return (
             <Text
               key={mensagem.id}
@@ -381,7 +395,7 @@ function MessageList(props) {
                       }}
                       tag="span"
                     >
-                      {mensagem.created_at}
+                      {dataFormatada}
                     </Text>
                   </Box>
                   <Text
