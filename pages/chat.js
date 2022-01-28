@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Box, TextField, Button } from "@skynexui/components";
 import { createClient } from "@supabase/supabase-js";
 import appConfig from "../config.json";
-import MessageList from "./components/MessageList";
-import Header from "./components/Header";
+import MessageList from "../components/MessageList";
+import Header from "../components/Header";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";

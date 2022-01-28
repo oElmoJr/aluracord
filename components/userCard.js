@@ -1,6 +1,6 @@
 import { Avatar, Typography, Box, Link } from "@mui/material";
 import { useState } from "react";
-import appConfig from "../../config.json";
+import appConfig from "../config.json";
 
 export default function UserCard({ user }) {
   const [userInfo, setUserInfo] = useState([]);
@@ -8,6 +8,7 @@ export default function UserCard({ user }) {
   fetch(`https://api.github.com/users/${user}`)
     .then((response) => response.json())
     .then((data) => {
+      setUserInfo([]);
       setUserInfo(data);
     });
 

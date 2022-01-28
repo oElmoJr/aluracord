@@ -41,7 +41,7 @@ export default function PaginaInicial() {
       fetch(`https://api.github.com/users/${username}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           localStorage.setItem("userInfo", JSON.stringify(data));
         });
     }
@@ -85,7 +85,7 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (e) {
               e.preventDefault();
-              roteamento.push("/chat");
+              username.length != 0 ? roteamento.push("/chat") : "";
             }}
             styleSheet={{
               display: "flex",

@@ -1,5 +1,5 @@
-import { Box, Text, Image, Button } from "@skynexui/components";
-import appConfig from "../../config.json";
+import { Box, Text, Button } from "@skynexui/components";
+import appConfig from "../config.json";
 import Loadingmensage from "./loadingMensage";
 
 import { styled } from "@mui/material/styles";
@@ -19,9 +19,9 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-export default function MessageList(props) {
-  const [mensagens, setMensagens] = useState([]);
-  setMensagens(props.mensagens);
+export default function MessageList(propiedades) {
+  // const [mensagens, setMensagens] = useState([propiedades.mensagens]);
+
   return (
     <Box
       tag="ul"
@@ -35,10 +35,10 @@ export default function MessageList(props) {
         marginBottom: "16px",
       }}
     >
-      {props.handlePending ? (
+      {propiedades.handlePending ? (
         <Loadingmensage />
       ) : (
-        mensagens.map((mensagem) => {
+        propiedades.mensagens.map((mensagem) => {
           const date = mensagem.created_at;
           var dataNformatada = new Date(date);
           let dataFormatada =
@@ -143,7 +143,7 @@ export default function MessageList(props) {
               <Box>
                 <Button
                   onClick={() => {
-                    props.handleDelete(mensagem.id);
+                    propiedades.handleDelete(mensagem.id);
                   }}
                   label="X"
                   variant="tertiary"
