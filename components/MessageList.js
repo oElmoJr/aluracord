@@ -7,7 +7,6 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import UserCard from "./userCard";
 import { Avatar } from "@mui/material";
-import { useState } from "react";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -20,8 +19,6 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 export default function MessageList(propiedades) {
-  // const [mensagens, setMensagens] = useState([propiedades.mensagens]);
-
   return (
     <Box
       tag="ul"

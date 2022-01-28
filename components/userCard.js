@@ -18,6 +18,7 @@ export default function UserCard({ user }) {
         backgroundColor: appConfig.theme.colors.neutrals[800],
       }}
     >
+      {console.log(userInfo)}
       <Link target={"_blank"} href={userInfo.html_url}>
         <Box
           marginBottom={2}
