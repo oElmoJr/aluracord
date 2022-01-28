@@ -8,7 +8,6 @@ export default function UserCard({ user }) {
   fetch(`https://api.github.com/users/${user}`)
     .then((response) => response.json())
     .then((data) => {
-      setUserInfo([]);
       setUserInfo(data);
     });
 
