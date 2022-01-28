@@ -19,6 +19,8 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 export default function MessageList(props) {
+  const mensagens = props.mensagens;
+
   return (
     <Box
       tag="ul"
@@ -35,7 +37,7 @@ export default function MessageList(props) {
       {props.handlePending ? (
         <Loadingmensage />
       ) : (
-        props.mensagens.map((mensagem) => {
+        mensagens.map((mensagem) => {
           const date = mensagem.created_at;
           var dataNformatada = new Date(date);
           let dataFormatada =
@@ -44,7 +46,6 @@ export default function MessageList(props) {
             (dataNformatada.getMonth() + 1) +
             "/" +
             dataNformatada.getFullYear();
-
           return (
             <Text
               key={mensagem.id}
