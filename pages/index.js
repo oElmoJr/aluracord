@@ -17,7 +17,6 @@ function IndexPage() {
 
 //Title component
 function Titulo(props) {
-  //   console.log(props);
   const Tag = props.tag || "h1";
   return (
     <>
@@ -33,35 +32,19 @@ function Titulo(props) {
   );
 }
 
-//react component
-// function HomePage() {
-//   // JSX
-//   return (
-//     <div>
-//       <GlobalStyle />
-//       <Titulo  tag="h1">Boas vindas de volta!</Titulo >
-//       <h2>Discord - Alura Matrix</h2>
-//     </div>
-//   );
-// }
-// export default HomePage;
-
 export default function PaginaInicial() {
-  // const username = "oelmojr";
   const [username, setUsername] = useState("");
-  const [followers, setollowers] = useState();
-  const [following, setFollowing] = useState();
   const roteamento = useRouter();
 
   {
-    username.length > 2
-      ? fetch(`https://api.github.com/users/${username}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setFollowing(data.following);
-            setollowers(data.followers);
-          })
-      : "";
+    function handleLoguin() {
+      fetch(`https://api.github.com/users/${username}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          localStorage.setItem("userInfo", JSON.stringify(data));
+        });
+    }
   }
 
   return (
@@ -141,6 +124,9 @@ export default function PaginaInicial() {
               }}
             />
             <Button
+              onClick={() => {
+                handleLoguin();
+              }}
               type="submit"
               label="Entrar"
               fullWidth
@@ -193,30 +179,6 @@ export default function PaginaInicial() {
                 }}
               >
                 {username}
-              </Text>
-
-              <Text
-                variant="body4"
-                styleSheet={{
-                  color: appConfig.theme.colors.neutrals[200],
-                  backgroundColor: appConfig.theme.colors.neutrals[900],
-                  padding: "3px 10px",
-                  borderRadius: "1000px",
-                  marginBottom: "2px",
-                }}
-              >
-                {username.length > 2 ? `Following ${following}` : ""}
-              </Text>
-              <Text
-                variant="body4"
-                styleSheet={{
-                  color: appConfig.theme.colors.neutrals[200],
-                  backgroundColor: appConfig.theme.colors.neutrals[900],
-                  padding: "3px 10px",
-                  borderRadius: "1000px",
-                }}
-              >
-                {username.length > 2 ? `Followers ${followers}` : ""}
               </Text>
             </Box>
           ) : (

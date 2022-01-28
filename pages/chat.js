@@ -1,10 +1,8 @@
 import Head from "next/head";
-import { Box, Text, TextField, Image, Button } from "@skynexui/components";
 import { useState, useEffect } from "react";
-
-import appConfig from "../config.json";
-
+import { Box, Text, TextField, Image, Button } from "@skynexui/components";
 import { createClient } from "@supabase/supabase-js";
+import appConfig from "../config.json";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";
@@ -24,6 +22,7 @@ export default function ChatPage() {
   const [mensagem, setMensagens] = useState("");
   const [listaDeMensagem, setListaDeMensagem] = useState([]);
   const [pending, setPending] = useState(true);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,15 +32,20 @@ export default function ChatPage() {
         .order("id", { ascending: false })
         .then(({ data }) => {
           setListaDeMensagem(data);
-          console.log(data);
           setPending(false);
         });
     }, 200);
+    let userInfo = localStorage.getItem("userInfo");
+    if (userInfo !== null) {
+      userInfo = JSON.parse(userInfo);
+      setUser(userInfo);
+      localStorage.clear();
+    }
   }, []);
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      de: "oelmojr",
+      de: user.login,
       texto: novaMensagem,
       color: "#5BC0EB",
     };
@@ -50,8 +54,7 @@ export default function ChatPage() {
       .from("mensagens")
       .insert([mensagem])
       .then(({ data }) => {
-        console.log(data);
-
+        // console.log(data);
         setListaDeMensagem([data[0], ...listaDeMensagem]);
       });
     setMensagens("");
