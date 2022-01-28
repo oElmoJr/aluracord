@@ -2,6 +2,22 @@ import { Box, Text, Image, Button } from "@skynexui/components";
 import appConfig from "../../config.json";
 import Loadingmensage from "./loadingMensage";
 
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import UserCard from "./userCard";
+import { Avatar } from "@mui/material";
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: appConfig.theme.colors.neutrals[800],
+    maxWidth: 260,
+    padding: "15px",
+  },
+}));
+
 export default function MessageList(props) {
   return (
     <Box
@@ -52,16 +68,23 @@ export default function MessageList(props) {
                   marginBottom: "8px",
                 }}
               >
-                <Image
-                  styleSheet={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight: "8px",
+                <HtmlTooltip
+                  sx={{
+                    padding: "0",
                   }}
-                  src={`https://github.com/${mensagem.de}.png`}
-                />
+                  title={<UserCard user={mensagem.de} />}
+                >
+                  <Avatar
+                    sx={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      display: "inline-block",
+                      marginRight: "8px",
+                    }}
+                    src={`https://github.com/${mensagem.de}.png`}
+                  />
+                </HtmlTooltip>
                 <Box
                   styleSheet={{
                     display: "flex",
@@ -70,19 +93,28 @@ export default function MessageList(props) {
                 >
                   <Box
                     styleSheet={{
+                      display: "flex",
+                      alignItems: "center",
                       marginRight: "10px",
                       marginBottom: "5px",
                     }}
                   >
-                    <Text
-                      tag="strong"
-                      styleSheet={{
-                        fontWeight: "bold",
-                        color: `${mensagem.color}`,
+                    <HtmlTooltip
+                      sx={{
+                        padding: "0",
                       }}
+                      title={<UserCard user={mensagem.de} />}
                     >
-                      {mensagem.de}
-                    </Text>
+                      <Typography
+                        style={{
+                          fontWeight: "bold",
+                          color: `${mensagem.color}`,
+                        }}
+                        color="inherit"
+                      >
+                        {mensagem.de}
+                      </Typography>
+                    </HtmlTooltip>
                     <Text
                       styleSheet={{
                         fontSize: "10px",

@@ -45,13 +45,15 @@ export default function ChatPage() {
     if (userInfo !== null) {
       userInfo = JSON.parse(userInfo);
       setUser(userInfo);
-      // localStorage.clear();
+      localStorage.clear();
     }
   }, []);
 
+  const name = user.login;
+
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      de: user.login,
+      de: name,
       texto: novaMensagem,
       color: "#5BC0EB",
     };
@@ -115,6 +117,7 @@ export default function ChatPage() {
             <MessageList
               handlePending={pending}
               mensagens={listaDeMensagem}
+              userInfo={user}
               handleDelete={(id) => {
                 setListaDeMensagem(
                   listaDeMensagem.filter((e) => {
