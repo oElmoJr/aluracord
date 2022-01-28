@@ -1,8 +1,15 @@
 import Head from "next/head";
 import { Box, Text, TextField, Image, Button } from "@skynexui/components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import appConfig from "../config.json";
+
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";
+const SUPABASE_URL = "https://hscoxurwegqobpmmzzjj.supabase.co";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function IndexPage() {
   return (
@@ -14,20 +21,39 @@ function IndexPage() {
 }
 
 export default function ChatPage() {
-  // Sua lógica vai aqui
   const [mensagem, setMensagens] = useState("");
   const [listaDeMensagem, setListaDeMensagem] = useState([]);
+  const [pending, setPending] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      supabase
+        .from("mensagens")
+        .select("*")
+        .order("id", { ascending: false })
+        .then(({ data }) => {
+          setListaDeMensagem(data);
+          console.log(data);
+          setPending(false);
+        });
+    }, 200);
+  }, []);
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      id: listaDeMensagem.length,
       de: "oelmojr",
       texto: novaMensagem,
-      cor: "gold",
+      color: "#5BC0EB",
     };
 
-    setListaDeMensagem([mensagem, ...listaDeMensagem]);
-    mensagem;
+    supabase
+      .from("mensagens")
+      .insert([mensagem])
+      .then(({ data }) => {
+        console.log(data);
+
+        setListaDeMensagem([data[0], ...listaDeMensagem]);
+      });
     setMensagens("");
   }
 
@@ -83,7 +109,9 @@ export default function ChatPage() {
                 </li>
                 );
               })} */}
+
             <MessageList
+              handlePending={pending}
               mensagens={listaDeMensagem}
               handleDelete={(id) => {
                 setListaDeMensagem(
@@ -205,109 +233,192 @@ function MessageList(props) {
         marginBottom: "16px",
       }}
     >
-      {props.mensagens.map((mensagem) => {
-        return (
-          <Text
-            key={mensagem.id}
-            tag="li"
+      {props.handlePending ? (
+        <Text
+          key={"zfdbaervvrvvsdvsfvdsfbsfgterdgvstrgasetbstgbs"}
+          tag="li"
+          styleSheet={{
+            display: "flex",
+            justifyContent: "space-between",
+
+            borderRadius: "5px",
+            padding: "6px",
+            marginBottom: "12px",
+            hover: {
+              backgroundColor: appConfig.theme.colors.neutrals[700],
+            },
+          }}
+        >
+          <Box
             styleSheet={{
               display: "flex",
-              justifyContent: "space-between",
-
-              borderRadius: "5px",
-              padding: "6px",
-              marginBottom: "12px",
-              hover: {
-                backgroundColor: appConfig.theme.colors.neutrals[700],
-              },
+              flexDirection: "row",
+              marginBottom: "8px",
             }}
           >
+            <Image
+              className="imgLoader"
+              styleSheet={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                display: "inline-block",
+                marginRight: "8px",
+                animation: "is-rotating 1s infinite",
+              }}
+              src={`https://media.discordapp.net/attachments/818979655046266882/935381706310053928/unnamed.jpg`}
+            />
             <Box
               styleSheet={{
                 display: "flex",
-                flexDirection: "row",
-                marginBottom: "8px",
+                flexDirection: "column",
               }}
             >
-              <Image
+              <Box
                 styleSheet={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  display: "inline-block",
-                  marginRight: "8px",
+                  marginRight: "10px",
+                  marginBottom: "5px",
                 }}
-                src={`https://github.com/oelmojr.png`}
-              />
+              >
+                <Text
+                  tag="strong"
+                  styleSheet={{
+                    fontWeight: "bold",
+                    color: `#9883E5`,
+                  }}
+                >
+                  elmo
+                </Text>
+                <Text
+                  styleSheet={{
+                    fontSize: "10px",
+                    marginLeft: "8px",
+                    color: appConfig.theme.colors.neutrals[300],
+                  }}
+                  tag="span"
+                >
+                  {Date.now()}
+                </Text>
+              </Box>
+              <Text
+                styleSheet={{
+                  width: "100%",
+                  wordBreak: "break-all",
+                  whiteSpace: "pre-line",
+                }}
+                tag="p"
+              >
+                Tá carregando, espera aí.
+              </Text>
+            </Box>
+          </Box>
+          <Box></Box>
+        </Text>
+      ) : (
+        props.mensagens.map((mensagem) => {
+          return (
+            <Text
+              key={mensagem.id}
+              tag="li"
+              styleSheet={{
+                display: "flex",
+                justifyContent: "space-between",
+
+                borderRadius: "5px",
+                padding: "6px",
+                marginBottom: "12px",
+                hover: {
+                  backgroundColor: appConfig.theme.colors.neutrals[700],
+                },
+              }}
+            >
               <Box
                 styleSheet={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  marginBottom: "8px",
                 }}
               >
+                <Image
+                  styleSheet={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    display: "inline-block",
+                    marginRight: "8px",
+                  }}
+                  src={`https://github.com/${mensagem.de}.png`}
+                />
                 <Box
                   styleSheet={{
-                    marginRight: "10px",
-                    marginBottom: "5px",
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  <Text
-                    tag="strong"
+                  <Box
                     styleSheet={{
-                      fontWeight: "bold",
-                      color: `${mensagem.cor}`,
+                      marginRight: "10px",
+                      marginBottom: "5px",
                     }}
                   >
-                    {mensagem.de}
-                  </Text>
+                    <Text
+                      tag="strong"
+                      styleSheet={{
+                        fontWeight: "bold",
+                        color: `${mensagem.color}`,
+                      }}
+                    >
+                      {mensagem.de}
+                    </Text>
+                    <Text
+                      styleSheet={{
+                        fontSize: "10px",
+                        marginLeft: "8px",
+                        color: appConfig.theme.colors.neutrals[300],
+                      }}
+                      tag="span"
+                    >
+                      {mensagem.created_at}
+                    </Text>
+                  </Box>
                   <Text
                     styleSheet={{
-                      fontSize: "10px",
-                      marginLeft: "8px",
-                      color: appConfig.theme.colors.neutrals[300],
+                      width: "100%",
+                      wordBreak: "break-all",
+                      whiteSpace: "pre-line",
                     }}
-                    tag="span"
+                    tag="p"
                   >
-                    {new Date().toLocaleDateString()}
+                    {mensagem.texto}
                   </Text>
                 </Box>
-                <Text
-                  styleSheet={{
-                    width: "100%",
-                    wordBreak: "break-all",
-                    whiteSpace: "pre-line",
-                  }}
-                  tag="p"
-                >
-                  {mensagem.texto}
-                </Text>
               </Box>
-            </Box>
-            <Box>
-              <Button
-                onClick={() => {
-                  props.handleDelete(mensagem.id);
-                }}
-                label="X"
-                variant="tertiary"
-                // iconName="trashAlt"
-                size="sm"
-                styleSheet={{
-                  height: "20px",
-                  width: "20px",
-                  padding: "0",
-                }}
-                buttonColors={{
-                  contrastColor: "#FFFFFF",
-                  mainColor: appConfig.theme.colors.neutrals[400],
-                  mainColorLight: appConfig.theme.colors.neutrals[500],
-                  mainColorStrong: appConfig.theme.colors.neutrals[100],
-                }}
-              />
-            </Box>
-          </Text>
-        );
-      })}
+              <Box>
+                <Button
+                  onClick={() => {
+                    props.handleDelete(mensagem.id);
+                  }}
+                  label="X"
+                  variant="tertiary"
+                  // iconName="trashAlt"
+                  size="sm"
+                  styleSheet={{
+                    height: "20px",
+                    width: "20px",
+                    padding: "0",
+                  }}
+                  buttonColors={{
+                    contrastColor: "#FFFFFF",
+                    mainColor: appConfig.theme.colors.neutrals[400],
+                    mainColorLight: appConfig.theme.colors.neutrals[500],
+                    mainColorStrong: appConfig.theme.colors.neutrals[100],
+                  }}
+                />
+              </Box>
+            </Text>
+          );
+        })
+      )}
     </Box>
   );
 }

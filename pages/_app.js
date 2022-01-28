@@ -35,6 +35,12 @@ function GlobalStyle() {
         flex: 1;
       }
 
+      @keyframes is-rotating {
+        to {
+          transform: rotate(2turn);
+        }
+      }
+
       /* ./App fit Height */
     `}</style>
   );
