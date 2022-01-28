@@ -297,16 +297,6 @@ function MessageList(props) {
                 >
                   elmo
                 </Text>
-                <Text
-                  styleSheet={{
-                    fontSize: "10px",
-                    marginLeft: "8px",
-                    color: appConfig.theme.colors.neutrals[300],
-                  }}
-                  tag="span"
-                >
-                  {Date.now()}
-                </Text>
               </Box>
               <Text
                 styleSheet={{
