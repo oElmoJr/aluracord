@@ -1,5 +1,5 @@
 import { Box, Text, Image } from "@skynexui/components";
-import appConfig from "../config.json";
+import appConfig from "../../config.json";
 
 export default function Loadingmensage() {
   return (

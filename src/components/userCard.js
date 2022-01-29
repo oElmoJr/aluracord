@@ -1,6 +1,6 @@
 import { Avatar, Typography, Box, Link } from "@mui/material";
 import { useState } from "react";
-import appConfig from "../config.json";
+import appConfig from "../../config.json";
 
 export default function UserCard({ user }) {
   const [userInfo, setUserInfo] = useState([]);
@@ -18,7 +18,7 @@ export default function UserCard({ user }) {
         backgroundColor: appConfig.theme.colors.neutrals[800],
       }}
     >
-      {console.log(userInfo)}
+      {/* {console.log(userInfo)} */}
       <Link target={"_blank"} href={userInfo.html_url}>
         <Box
           marginBottom={2}

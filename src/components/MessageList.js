@@ -1,5 +1,5 @@
-import { Box, Text, Button } from "@skynexui/components";
-import appConfig from "../config.json";
+import { Box, Text, Button, Image } from "@skynexui/components";
+import appConfig from "../../config.json";
 import Loadingmensage from "./loadingMensage";
 
 import { styled } from "@mui/material/styles";
@@ -133,7 +133,16 @@ export default function MessageList(propiedades) {
                     }}
                     tag="p"
                   >
-                    {mensagem.texto}
+                    {mensagem.texto.startsWith(":sticker:") ? (
+                      <Image
+                        styleSheet={{
+                          maxHeight: "150px",
+                        }}
+                        src={mensagem.texto.replace(":sticker:", "")}
+                      />
+                    ) : (
+                      mensagem.texto
+                    )}
                   </Text>
                 </Box>
               </Box>

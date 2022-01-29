@@ -36,17 +36,6 @@ export default function PaginaInicial() {
   const [username, setUsername] = useState("");
   const roteamento = useRouter();
 
-  {
-    function handleLoguin() {
-      fetch(`https://api.github.com/users/${username}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data);
-          localStorage.setItem("userInfo", JSON.stringify(data));
-        });
-    }
-  }
-
   return (
     <>
       <IndexPage />
@@ -85,7 +74,7 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (e) {
               e.preventDefault();
-              username.length != 0 ? roteamento.push("/chat") : "";
+              roteamento.push(`/chat?username=${username}`);
             }}
             styleSheet={{
               display: "flex",
@@ -124,9 +113,6 @@ export default function PaginaInicial() {
               }}
             />
             <Button
-              onClick={() => {
-                handleLoguin();
-              }}
               type="submit"
               label="Entrar"
               fullWidth

@@ -1,15 +1,26 @@
+import appConfig from "../config.json";
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Box, TextField, Button } from "@skynexui/components";
 import { createClient } from "@supabase/supabase-js";
-import appConfig from "../config.json";
-import MessageList from "../components/MessageList";
-import Header from "../components/Header";
+import MessageList from "../src/components/MessageList";
+import Header from "../src/components/Header";
+import { ButtonSendSticker } from "../src/components/ButtonSendSticker";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";
 const SUPABASE_URL = "https://hscoxurwegqobpmmzzjj.supabase.co";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function escutaMensagensEmTempoReal(adicionaMensagem) {
+  return supabase
+    .from("mensagens")
+    .on("INSERT", (respostaLive) => {
+      adicionaMensagem(respostaLive.new);
+    })
+    .subscribe();
+}
 
 function IndexPage() {
   return (
@@ -21,10 +32,10 @@ function IndexPage() {
 }
 
 export default function ChatPage() {
+  const roteamento = useRouter();
   const [mensagem, setMensagens] = useState("");
-  const [listaDeMensagem, setListaDeMensagem] = useState([]);
   const [pending, setPending] = useState(true);
-  const [user, setUser] = useState([]);
+  const [listaDeMensagem, setListaDeMensagem] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,18 +49,14 @@ export default function ChatPage() {
           setPending(false);
         });
     }, 200);
+    escutaMensagensEmTempoReal((novaMensagem) => {
+      setListaDeMensagem((valorAtualDaLista) => {
+        return [novaMensagem, ...valorAtualDaLista];
+      });
+    });
   }, []);
 
-  useEffect(() => {
-    let userInfo = localStorage.getItem("userInfo");
-    if (userInfo !== null) {
-      userInfo = JSON.parse(userInfo);
-      setUser(userInfo);
-      localStorage.clear();
-    }
-  }, []);
-
-  const name = user.login;
+  const name = roteamento.query.username;
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
@@ -63,8 +70,10 @@ export default function ChatPage() {
       .insert([mensagem])
       .then(({ data }) => {
         console.log(data);
-
-        setListaDeMensagem([data[0], ...listaDeMensagem]);
+        // setListaDeMensagem(
+        //   [data[0],
+        //   ...listaDeMensagem
+        // ]);
       });
     setMensagens("");
   }
@@ -117,7 +126,7 @@ export default function ChatPage() {
             <MessageList
               handlePending={pending}
               mensagens={listaDeMensagem}
-              userInfo={user}
+              userInfo={name}
               handleDelete={(id) => {
                 setListaDeMensagem(
                   listaDeMensagem.filter((e) => {
@@ -132,6 +141,12 @@ export default function ChatPage() {
                 display: "flex",
               }}
             >
+              <ButtonSendSticker
+                onStickerClick={(sticker) => {
+                  console.log("salva");
+                  handleNovaMensagem(`:sticker: ${sticker} `);
+                }}
+              />
               <TextField
                 value={mensagem}
                 onChange={(e) => {
