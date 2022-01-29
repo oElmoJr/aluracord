@@ -171,12 +171,15 @@ export default function ChatPage() {
                 styleSheet={{
                   border: "0",
                   width: "100%",
-                  height: "100%",
+                  // height: "100%",
+                  minHeight: "46px",
+                  maxHeight: "50px",
                   resize: "none",
                   borderRadius: "5px",
                   padding: "6px 8px",
                   backgroundColor: appConfig.theme.colors.neutrals[800],
                   marginRight: "12px",
+                  marginLeft: "12px",
                   color: appConfig.theme.colors.neutrals[200],
                 }}
               />
@@ -190,6 +193,8 @@ export default function ChatPage() {
                 iconName="paperPlane"
                 label="Send"
                 styleSheet={{
+                  minHeight: "46px",
+                  maxHeight: "50px",
                   border: "0",
                   display: "flex",
                   alignItems: "center",
@@ -198,7 +203,7 @@ export default function ChatPage() {
                   width: "100px",
                   backgroundColor: appConfig.theme.colors.primary[500],
                   color: appConfig.theme.colors.neutrals[500],
-                  marginBottom: "5px",
+                  marginBottom: "8px",
                 }}
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["500"],
