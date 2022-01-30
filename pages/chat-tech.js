@@ -7,6 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 import MessageList from "../src/components/MessageList";
 import Header from "../src/components/Header";
 import { ButtonSendSticker } from "../src/components/ButtonSendSticker";
+import ChatList from "../src/components/ChatList";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMDA4NiwiZXhwIjoxOTU4ODk2MDg2fQ.x0pSGNwztZfGYczeC8TPY28sS-22Ic2iDq0JrBRzeUM";
@@ -111,60 +112,7 @@ export default function ChatTech() {
               flex: 1,
             }}
           >
-            <Box
-              styleSheet={{
-                backgroundColor: appConfig.theme.colors.neutrals[600],
-                borderRadius: "5px",
-                padding: "16px",
-                marginRight: "10px",
-              }}
-            >
-              <Button
-                onClick={() => {
-                  roteamento.push(`/chat?username=${name}`);
-                }}
-                styleSheet={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  lineHeight: "0",
-                  fontSize: "30px",
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  transition: "200ms",
-                  marginBottom: "10px",
-                  hover: {
-                    borderRadius: "30%",
-                    cursor: "pointer",
-                  },
-                }}
-                iconName="Comment"
-                buttonColors={{
-                  contrastColor: appConfig.theme.colors.neutrals["000"],
-                  mainColor: appConfig.theme.colors.neutrals["500"],
-                  mainColorLight: appConfig.theme.colors.neutrals[400],
-                  mainColorStrong: appConfig.theme.colors.neutrals[700],
-                }}
-              />
-
-              <Image
-                src="https://hlink.pt/wp-content/uploads/2021/05/SOFTWARE-MEDIDA.jpg"
-                onClick={() => {
-                  roteamento.push(`/chat-tech?username=${name}`);
-                }}
-                styleSheet={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  transition: "200ms",
-                  hover: {
-                    borderRadius: "30%",
-                    cursor: "pointer",
-                  },
-                }}
-              />
-            </Box>
+            <ChatList username={name} />
             <Box
               styleSheet={{
                 position: "relative",
