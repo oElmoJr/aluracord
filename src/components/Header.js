@@ -1,4 +1,15 @@
-import { Box, Text, Button } from "@skynexui/components";
+import { Button } from "@mui/material";
+import { Box, Text } from "@skynexui/components";
+import appConfig from "../../config.json";
+import { styled } from "@mui/material/styles";
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: appConfig.theme.colors.neutrals[300],
+  backgroundColor: appConfig.theme.colors.neutrals[700],
+  "&:hover": {
+    backgroundColor: appConfig.theme.colors.neutrals[500],
+  },
+}));
 
 export default function Header() {
   return (
@@ -13,12 +24,18 @@ export default function Header() {
         }}
       >
         <Text variant="heading5">Chat</Text>
-        <Button
-          variant="tertiary"
-          colorVariant="neutral"
-          label="Logout"
+        <ColorButton
+          sx={{
+            color: appConfig.theme.colors.neutrals[300],
+            hover: {
+              backgroundColor: appConfig.theme.colors.neutrals[100],
+            },
+          }}
+          variant="text"
           href="/"
-        />
+        >
+          Logout
+        </ColorButton>
       </Box>
     </>
   );

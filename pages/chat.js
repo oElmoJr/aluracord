@@ -57,6 +57,7 @@ export default function ChatPage() {
     });
   }, []);
 
+  const page = "chat";
   const name = roteamento.query.username;
 
   function handleNovaMensagem(novaMensagem) {
@@ -119,7 +120,7 @@ export default function ChatPage() {
               flex: 1,
             }}
           >
-            <ChatList username={name} />
+            <ChatList username={name} page={page} />
             <Box
               styleSheet={{
                 position: "relative",
