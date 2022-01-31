@@ -63,7 +63,7 @@ export default function ChatAnime() {
     const mensagem = {
       de: name,
       texto: novaMensagem,
-      color: "#5BC0EB",
+      color: "#FFAFF0",
     };
 
     supabase
