@@ -63,7 +63,7 @@ export default function ChatGames() {
     const mensagem = {
       de: name,
       texto: novaMensagem,
-      color: "#5BC0EB",
+      color: `#9883E5`,
     };
 
     supabase

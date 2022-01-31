@@ -63,7 +63,7 @@ export default function ChatKpop() {
     const mensagem = {
       de: name,
       texto: novaMensagem,
-      color: "#5BC0EB",
+      color: "#FFD95C",
     };
 
     supabase
