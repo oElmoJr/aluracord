@@ -77,7 +77,7 @@ export default function ChatList(props) {
           margin: "16px 16px 16px 0",
         }}
       >
-        {props.page === "chat" ? (
+        {props.page === "Chat" ? (
           <div
             style={{
               height: "50px",
@@ -100,7 +100,7 @@ export default function ChatList(props) {
           ></div>
         )}
 
-        <BootstrapTooltip title="Inicio" placement="right" arrow>
+        <BootstrapTooltip title="Chat Geral" placement="right" arrow>
           <div>
             <BootstrapButton
               onClick={() => {
@@ -118,7 +118,7 @@ export default function ChatList(props) {
           margin: "16px 16px 16px 0",
         }}
       >
-        {props.page === "chat-tech" ? (
+        {props.page === "Chat-Games" ? (
           <div
             style={{
               height: "50px",
@@ -140,12 +140,12 @@ export default function ChatList(props) {
             }}
           ></div>
         )}
-        <BootstrapTooltip title="Chat de Tecnologia" placement="right" arrow>
+        <BootstrapTooltip title="Chat de Games" placement="right" arrow>
           <div>
             <BootstrapButton
               src=""
               onClick={() => {
-                roteamento.push(`/chat-tech?username=${props.username}`);
+                roteamento.push(`/chat-games?username=${props.username}`);
               }}
             >
               <StyledImage
@@ -153,7 +153,103 @@ export default function ChatList(props) {
                   width: "50px",
                   height: "50px",
                 }}
-                src="https://hlink.pt/wp-content/uploads/2021/05/SOFTWARE-MEDIDA.jpg"
+                src="https://www.skoua.com/img/icon-video-games-quiz.png"
+                alt=""
+              />
+            </BootstrapButton>
+          </div>
+        </BootstrapTooltip>
+      </Box>
+      <Box
+        styleSheet={{
+          display: "flex",
+          margin: "16px 16px 16px 0",
+        }}
+      >
+        {props.page === "Chat-Anime" ? (
+          <div
+            style={{
+              height: "50px",
+              width: "4px",
+              backgroundColor: "#fff",
+              borderRadius: "0 50px 50px 0 ",
+              padding: "0",
+              margin: "0",
+            }}
+          ></div>
+        ) : (
+          <div
+            style={{
+              height: "50px",
+              width: "4px",
+              borderRadius: "0 50px 50px 0 ",
+              padding: "0",
+              margin: "0",
+            }}
+          ></div>
+        )}
+        <BootstrapTooltip title="Chat de Anime" placement="right" arrow>
+          <div>
+            <BootstrapButton
+              src=""
+              onClick={() => {
+                roteamento.push(`/chat-anime?username=${props.username}`);
+              }}
+            >
+              <StyledImage
+                style={{
+                  width: "50px",
+                  height: "50px",
+                }}
+                src="https://64.media.tumblr.com/cd53c9e3b0ddaa81702c53a58d95b553/646539a0699d1a68-37/s1280x1920/b3131b4f1a09af9a205daccd3dcca6f36bf70814.jpg"
+                alt=""
+              />
+            </BootstrapButton>
+          </div>
+        </BootstrapTooltip>
+      </Box>
+      <Box
+        styleSheet={{
+          display: "flex",
+          margin: "16px 16px 16px 0",
+        }}
+      >
+        {props.page === "Chat-Kpop" ? (
+          <div
+            style={{
+              height: "50px",
+              width: "4px",
+              backgroundColor: "#fff",
+              borderRadius: "0 50px 50px 0 ",
+              padding: "0",
+              margin: "0",
+            }}
+          ></div>
+        ) : (
+          <div
+            style={{
+              height: "50px",
+              width: "4px",
+              borderRadius: "0 50px 50px 0 ",
+              padding: "0",
+              margin: "0",
+            }}
+          ></div>
+        )}
+        <BootstrapTooltip title="Chat de Kpop" placement="right" arrow>
+          <div>
+            <BootstrapButton
+              src=""
+              onClick={() => {
+                roteamento.push(`/chat-kpop?username=${props.username}`);
+              }}
+            >
+              <StyledImage
+                style={{
+                  width: "50px",
+                  height: "50px",
+                }}
+                src="https://pbs.twimg.com/media/FH2ttHgXwAQqxoo.jpg"
                 alt=""
               />
             </BootstrapButton>

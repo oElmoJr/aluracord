@@ -11,7 +11,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function Header() {
+export default function Header(props) {
   return (
     <>
       <Box
@@ -23,7 +23,7 @@ export default function Header() {
           justifyContent: "space-between",
         }}
       >
-        <Text variant="heading5">Chat</Text>
+        <Text variant="heading5">{props.page}</Text>
         <ColorButton
           sx={{
             color: appConfig.theme.colors.neutrals[300],

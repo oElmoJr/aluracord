@@ -16,7 +16,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function escutaMensagensEmTempoReal(adicionaMensagem) {
   return supabase
-    .from("mensagenstech")
+    .from("mensagensgames")
     .on("INSERT", (respostaLive) => {
       adicionaMensagem(respostaLive.new);
     })
@@ -26,13 +26,13 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
 function IndexPage() {
   return (
     <Head>
-      <title>AluraCord | Chat</title>
+      <title>AluraCord | Chat Games</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
   );
 }
 
-export default function ChatTech() {
+export default function ChatGames() {
   const roteamento = useRouter();
   const [mensagem, setMensagens] = useState("");
   const [pending, setPending] = useState(true);
@@ -41,7 +41,7 @@ export default function ChatTech() {
   useEffect(() => {
     setTimeout(() => {
       supabase
-        .from("mensagenstech")
+        .from("mensagensgames")
         .select("*")
         .order("id", { ascending: false })
         .then(({ data }) => {
@@ -56,7 +56,7 @@ export default function ChatTech() {
     });
   }, []);
 
-  const page = "chat-tech";
+  const page = "Chat-Games";
   const name = roteamento.query.username;
 
   function handleNovaMensagem(novaMensagem) {
@@ -67,7 +67,7 @@ export default function ChatTech() {
     };
 
     supabase
-      .from("mensagenstech")
+      .from("mensagensgames")
       .insert([mensagem])
       .then(({ data }) => {
         console.log(data);
@@ -105,7 +105,7 @@ export default function ChatTech() {
             padding: "32px",
           }}
         >
-          <Header />
+          <Header page={page} />
           <Box
             styleSheet={{
               display: "flex",

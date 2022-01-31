@@ -16,7 +16,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function escutaMensagensEmTempoReal(adicionaMensagem) {
   return supabase
-    .from("mensagens")
+    .from("mensagenskpop")
     .on("INSERT", (respostaLive) => {
       adicionaMensagem(respostaLive.new);
     })
@@ -26,13 +26,13 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
 function IndexPage() {
   return (
     <Head>
-      <title>AluraCord | Chat</title>
+      <title>AluraCord | Chat Kpop</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
   );
 }
 
-export default function ChatPage() {
+export default function ChatKpop() {
   const roteamento = useRouter();
   const [mensagem, setMensagens] = useState("");
   const [pending, setPending] = useState(true);
@@ -41,12 +41,11 @@ export default function ChatPage() {
   useEffect(() => {
     setTimeout(() => {
       supabase
-        .from("mensagens")
+        .from("mensagenskpop")
         .select("*")
         .order("id", { ascending: false })
         .then(({ data }) => {
           setListaDeMensagem(data);
-          // console.log(data);
           setPending(false);
         });
     }, 200);
@@ -57,7 +56,7 @@ export default function ChatPage() {
     });
   }, []);
 
-  const page = "Chat";
+  const page = "Chat-Kpop";
   const name = roteamento.query.username;
 
   function handleNovaMensagem(novaMensagem) {
@@ -68,19 +67,13 @@ export default function ChatPage() {
     };
 
     supabase
-      .from("mensagens")
+      .from("mensagenskpop")
       .insert([mensagem])
       .then(({ data }) => {
         console.log(data);
-        // setListaDeMensagem(
-        //   [data[0],
-        //   ...listaDeMensagem
-        // ]);
       });
     setMensagens("");
   }
-
-  // ./Sua lógica vai aqui
   return (
     <>
       <IndexPage />
