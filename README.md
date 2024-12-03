@@ -1,9 +1,8 @@
 # aluracord
 
-  <img id="icon" height="400px" align="left" alt="Icon" src="https://i.ibb.co/MMPZC4Z/image.png">
-  
-  <img height="400px" align="center" id="banner" alt="Banner" src="https://github.com/user-attachments/assets/435537e3-6d9b-4d17-bb78-7da333586d1b" >
   <img height="400px" align="right" id="banner" alt="Banner" src="https://github.com/user-attachments/assets/e130b193-8e2a-4185-b7bd-eb7609550c61" >
+  <img id="icon" height="400px" align="left" alt="Icon" src="https://i.ibb.co/MMPZC4Z/image.png">
+  <img height="400px" align="center" id="banner" alt="Banner" src="https://github.com/user-attachments/assets/435537e3-6d9b-4d17-bb78-7da333586d1b" >
   
   <br>
   <br>
