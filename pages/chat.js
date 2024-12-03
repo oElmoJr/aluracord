@@ -87,7 +87,7 @@ export default function ChatPage() {
       <Box
         styleSheet={{
           display: "flex",
-          width: "90vh",
+          width: "80vh",
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: appConfig.theme.colors.primary["000"],
@@ -107,7 +107,7 @@ export default function ChatPage() {
             borderRadius: "5px",
             backgroundColor: appConfig.theme.colors.neutrals[700],
             height: "100%",
-            maxWidth: "95%",
+            maxWidth: "85%",
             maxHeight: "95vh",
             padding: "32px",
           }}
