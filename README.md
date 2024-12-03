@@ -1,5 +1,6 @@
 # aluracord
 
-<img src="https://media.discordapp.net/attachments/818979655046266882/938196503690879036/unknown.png" >
-
-<img src="https://media.discordapp.net/attachments/818979655046266882/938200632836374568/unknown.png" >
+  <img id="icon" align="left" alt="Icon" src="https://ibb.co/ChVmHZm">
+  <img id="icon" align="left" alt="Icon" src="https://ibb.co/ChVmHZm">
+  <img height="350" align="right" id="banner" alt="Banner" src="https://ibb.co/qdJgRh0" >
+  <img height="350" align="right" id="banner" alt="Banner" src="https://ibb.co/0hZSR9F" >
