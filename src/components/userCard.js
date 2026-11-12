@@ -1,15 +1,19 @@
 import { Avatar, Typography, Box, Link } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import appConfig from "../../config.json";
 
 export default function UserCard({ user }) {
   const [userInfo, setUserInfo] = useState([]);
 
-  fetch(`https://api.github.com/users/${user}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setUserInfo(data);
-    });
+  useEffect(() => {
+    if (!user) return;
+    const controller = new AbortController();
+    fetch(`https://api.github.com/users/${encodeURIComponent(user)}`, { signal: controller.signal })
+      .then(response => response.ok ? response.json() : null)
+      .then(data => { if (data) setUserInfo(data); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [user]);
 
   return (
     <Box
@@ -19,7 +23,7 @@ export default function UserCard({ user }) {
       }}
     >
       {/* {console.log(userInfo)} */}
-      <Link target={"_blank"} href={userInfo.html_url}>
+      <Link target={"_blank"} rel="noopener noreferrer" href={userInfo.html_url || (user ? `https://github.com/${encodeURIComponent(user)}` : undefined)}>
         <Box
           marginBottom={2}
           sx={{
@@ -48,13 +52,13 @@ export default function UserCard({ user }) {
               variant="body1"
               color={appConfig.theme.colors.neutrals["000"]}
             >
-              {userInfo.name}
+              {userInfo.name || user || "Visitante"}
             </Typography>
             <Typography
               variant="body2"
               color={appConfig.theme.colors.neutrals["000"]}
             >
-              @{userInfo.login}
+              @{userInfo.login || user || "visitante"}
             </Typography>
           </Box>
         </Box>

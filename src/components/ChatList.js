@@ -104,7 +104,7 @@ export default function ChatList(props) {
           <div>
             <BootstrapButton
               onClick={() => {
-                roteamento.push(`/chat?username=${props.username}`);
+                roteamento.push(`/chat?username=${encodeURIComponent(props.username || "")}`);
               }}
             >
               <ChatBubbleIcon />
@@ -145,7 +145,7 @@ export default function ChatList(props) {
             <BootstrapButton
               src=""
               onClick={() => {
-                roteamento.push(`/chat-games?username=${props.username}`);
+                roteamento.push(`/chat-games?username=${encodeURIComponent(props.username || "")}`);
               }}
             >
               <StyledImage
@@ -193,7 +193,7 @@ export default function ChatList(props) {
             <BootstrapButton
               src=""
               onClick={() => {
-                roteamento.push(`/chat-anime?username=${props.username}`);
+                roteamento.push(`/chat-anime?username=${encodeURIComponent(props.username || "")}`);
               }}
             >
               <StyledImage
@@ -241,7 +241,7 @@ export default function ChatList(props) {
             <BootstrapButton
               src=""
               onClick={() => {
-                roteamento.push(`/chat-kpop?username=${props.username}`);
+                roteamento.push(`/chat-kpop?username=${encodeURIComponent(props.username || "")}`);
               }}
             >
               <StyledImage

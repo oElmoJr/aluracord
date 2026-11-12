@@ -71,7 +71,7 @@ export default function MessageList(propiedades) {
                   sx={{
                     padding: "0",
                   }}
-                  title={<UserCard user={mensagem.de} />}
+                  title={<UserCard user={mensagem.de || "Visitante"} />}
                 >
                   <Avatar
                     sx={{
@@ -81,7 +81,7 @@ export default function MessageList(propiedades) {
                       display: "inline-block",
                       marginRight: "8px",
                     }}
-                    src={`https://github.com/${mensagem.de}.png`}
+                    src={mensagem.de ? `https://github.com/${encodeURIComponent(mensagem.de)}.png` : undefined}
                   />
                 </HtmlTooltip>
                 <Box
@@ -102,7 +102,7 @@ export default function MessageList(propiedades) {
                       sx={{
                         padding: "0",
                       }}
-                      title={<UserCard user={mensagem.de} />}
+                      title={<UserCard user={mensagem.de || "Visitante"} />}
                     >
                       <Typography
                         style={{
@@ -111,7 +111,7 @@ export default function MessageList(propiedades) {
                         }}
                         color="inherit"
                       >
-                        {mensagem.de}
+                        {mensagem.de || "Visitante"}
                       </Typography>
                     </HtmlTooltip>
                     <Text
@@ -152,6 +152,7 @@ export default function MessageList(propiedades) {
                     propiedades.handleDelete(mensagem.id);
                   }}
                   label="X"
+                  aria-label="Ocultar mensagem"
                   variant="tertiary"
                   // iconName="trashAlt"
                   size="sm"

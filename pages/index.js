@@ -74,7 +74,9 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (e) {
               e.preventDefault();
-              roteamento.push(`/chat?username=${username}`);
+              if (/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(username.trim())) {
+                roteamento.push(`/chat?username=${encodeURIComponent(username.trim())}`);
+              }
             }}
             styleSheet={{
               display: "flex",
@@ -98,9 +100,12 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              aria-label="Usuário do GitHub"
+              maxLength={39}
+              required
               value={username}
               onChange={function (e) {
-                setUsername(e.target.value);
+                setUsername(e.target.value.trim());
               }}
               fullWidth
               textFieldColors={{
@@ -115,6 +120,7 @@ export default function PaginaInicial() {
             <Button
               type="submit"
               label="Entrar"
+              disabled={!/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(username)}
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals["500"],

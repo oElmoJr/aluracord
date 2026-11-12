@@ -1,0 +1,4 @@
+{
+  "regions": ["gru1"],
+  "installCommand": "npm ci"
+}
